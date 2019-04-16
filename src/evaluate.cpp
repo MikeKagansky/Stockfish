@@ -516,6 +516,11 @@ namespace {
 
     Bitboard b, weak, defended, nonPawnEnemies, stronglyProtected, safe;
     Score score = SCORE_ZERO;
+    
+    	// bonus for restricts opponent's Knight
+ 	  int	rBonus  = 7 * popcount(  attackedBy[Us][PAWN] & attackedBy[Them][KNIGHT] );
+		    rBonus +=     popcount( ~attackedBy[Us][PAWN] & attackedBy[Us][BISHOP] & attackedBy[Them][KNIGHT] );
+		score += make_score( rBonus, rBonus );
 
     // Non-pawn enemies
     nonPawnEnemies = pos.pieces(Them) ^ pos.pieces(Them, PAWN);
